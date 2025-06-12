@@ -26,7 +26,7 @@ const Login = () => {
                 <h2>Login</h2>
                 <p>Please enter your credentials to continue.</p>
                 <br className="mt-1" />
-                
+
                 <input
                     type="text"
                     placeholder="Username"
@@ -41,6 +41,7 @@ const Login = () => {
                 />
                 <button className="mt-2 btn-primary" onClick={handleLogin}>Login</button>
                 <p className="mt-1">Don't have an account? <NavLink to="/register"><span className="link">Register</span></NavLink></p>
+                <p className="caution mt-2">By logging in, you agree to our Terms of Service and Privacy Policy.</p>
             </div>
         </div>
         </>

@@ -48,6 +48,7 @@ const Register = () => {
                 />
                 <button className="mt-2 btn-primary" onClick={handleregister}>Register</button>
                 <p className="mt-1">Already have an account? <NavLink to="/login"><span className="link">Login</span></NavLink></p>
+                <p className="caution mt-2">By registering, you agree to our Terms of Service and Privacy Policy.</p>
             </div>
         </div>
         </>

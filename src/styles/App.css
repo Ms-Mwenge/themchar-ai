@@ -48,6 +48,7 @@ body {
 .caution{
   margin-top: 1em;
   font-size: .65rem;
+  text-align: center ;
 }
 
 .show{
@@ -332,6 +333,25 @@ div.chat-input input{
   color: var(--black);
 }
 
+div.send-btn-disabled{
+  width: fit-content;
+  height: fit-content;
+  padding:  1em;
+  border-radius: 50%;
+
+  background-color: var(--light-gray);
+  color: var(--white);
+  font-weight: 600;
+  column-gap: .25em;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: not-allowed;
+
+}
+
 div.send-btn{
   width: fit-content;
   height: fit-content;
@@ -484,4 +504,77 @@ input[type="text"], input[type="password"]{
 
 .login-logo, .register-logo{
   margin: 4em 0;
+}
+
+
+/* ============================================ */
+/* media queries */
+@media (max-width: 992px) {
+ nav{
+  align-items: center;
+  padding: 1em;
+}
+
+  .logo img{
+    width: 150px;
+    height: auto;
+  }
+
+  .home h1{
+    font: normal normal normal 48px/48px Montserrat;
+    letter-spacing: -4.5px;
+  }
+
+  p{
+    font: normal normal normal 14px/16px Montserrat;
+    letter-spacing: 0.10px;
+  }
+
+
+
+  .home{
+    margin-top: 4em;
+  }
+  aside.chat-sidebar{
+    display: none !important;
+  }
+
+  .chat-room {
+    max-width: 100%;
+    width: 100%;
+    height: 400px;
+  }
+
+  div.chat-input{
+    width: 100%;
+    padding: .5em 1em;
+    align-items: center;
+    row-gap: 1em;
+  }
+  div.chat-input input{
+    margin-top: 0em !important;
+  }
+
+  .empty-chat{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 0 1em;
+  }
+  .login-container, .register-container{
+    padding: 1em;
+    margin: 1em;
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .login-logo, .register-logo{
+    margin: 2em 0;
+  }
+  .login-logo img, .register-logo img{
+   width: 180px;
+    height: auto;
+  }
 }

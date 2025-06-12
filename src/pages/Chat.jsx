@@ -68,7 +68,7 @@ const Chat = () => {
             // return data;
             
             // For now, we'll simulate a response
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            await new Promise(resolve => setTimeout(resolve, 1800));
             return simulateBotResponse(message);
         } catch (error) {
             console.error("API Error:", error);
@@ -113,14 +113,8 @@ const Chat = () => {
                 <div className={`col-1 ${showSidebar ? 'show' : 'hide'}`}>
                     <h3>Chat History</h3>
                     <ul>
-                        <li>Random titles that i generated for my UI.</li>
-                        <li>Random titles</li>
-                        <li>Random titles</li>
-                        <li>Random titles</li>
-                        <li>Random titles</li>
-                        <li>Random titles</li>
-                        <li>Random titles</li>
-                        <li>Random titles</li>
+                        <li>An example of a previous chat.</li>
+                 
                     </ul>
                 </div>
 
@@ -159,8 +153,8 @@ const Chat = () => {
                         </div>
                       ) : (
                         
-                        <div>
-                            <h2>Hello, what's on your mind today?</h2>
+                        <div className="empty-chat">
+                            <h2>What's on your mind today?</h2>
                             <p> Start a conversation by typing a message below.</p>
                         </div>
                         )
@@ -178,7 +172,7 @@ const Chat = () => {
                         />
                          <div
                         onClick={handleSend}
-                        className="send-btn"
+                        className={"send-btn" + (isWaitingForResponse ? "-disabled" : "")}
                         >
                             
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" className="bi bi-send-fill" viewBox="0 0 16 16">
