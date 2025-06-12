@@ -1,5 +1,6 @@
 import {React} from 'react';
-import Logo from '../assets/logo.png'; // Assuming you have a logo image
+import Logo from '../assets/logo.png'; 
+import {NavLink} from 'react-router-dom';
 
 const Navbar = () => {
     return(
@@ -10,7 +11,7 @@ const Navbar = () => {
          <div className="nav-links flex column-gap">
             <div className="buttons flex column-gap">
                 {/* <button className="btn-secondary">Submit Feedback</button> */}
-                <button className="btn-primary">Login</button>
+                <NavLink to="/login" className="btn-primary">Login</NavLink>
             </div>
          </div>
        </nav>

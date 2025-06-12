@@ -20,7 +20,7 @@ const Home = () => {
             
             {/* footer */}
             <footer>
-            <p>Designed & Developed By: <br/> <b>STUDENT:</b> Mwenge Corlinus. |  <b>ID:</b> 2404433989</p>
+                <p>Designed & Developed By: <br/> <b>STUDENT:</b> Mwenge Corlinus. |  <b>ID:</b> 2404433989</p>
             </footer>
         </>
     )
