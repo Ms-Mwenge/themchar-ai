@@ -3,13 +3,21 @@ import './styles/App.css';
 import './styles/Loader.css';
 import { Routes, Route } from 'react-router-dom';
 
-import Home from './components/Home';
+import Navbar from './components/Navbar';
+
+import Home from './pages/Home';
+import Chat from './pages/Chat';
 
 function App() {
   return (
     <div className="App">
+      {/* Navbar */}
+      
+      <Navbar />
+
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
 
 
@@ -18,10 +26,6 @@ function App() {
 
 
 
-     {/* footer */}
-     <footer>
-       <p><b>STUDENT:</b> Mwenge Corlinus. |  <b>ID:</b> 2404433989</p>
-     </footer>
     </div>
   );
 }

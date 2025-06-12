@@ -9,7 +9,7 @@ const Navbar = () => {
          </div>
          <div className="nav-links flex column-gap">
             <div className="buttons flex column-gap">
-                <button className="btn-secondary">Submit Feedback</button>
+                {/* <button className="btn-secondary">Submit Feedback</button> */}
                 <button className="btn-primary">Login</button>
             </div>
          </div>
