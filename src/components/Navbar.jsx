@@ -7,11 +7,27 @@ import axios from 'axios';
 const Navbar = () => {
   const user = useAuthStore((state) => state.user);
   const token = useAuthStore((state) => state.token);
+  const chatSessionId = useAuthStore((state) => state.chatSessionId);
   const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
+
+          //   end chat session
+         const endChatResponse = await axios.post(
+         `${process.env.REACT_APP_API_URL}/chat/end/${chatSessionId}`,
+         {},
+         {
+            headers: {
+               Authorization: `Bearer ${token}`,
+            },
+         }
+         );
+
+         console.log('Chat session ended:', endChatResponse.data);
+
+         
        // Call backend to invalidate token
          await axios.post(
             `${process.env.REACT_APP_API_URL}/auth/logout`,
@@ -25,6 +41,8 @@ const Navbar = () => {
 
          // console
          console.log('Logout successful');
+
+     
 
          // Clear Zustand store and localStorage
          logout();

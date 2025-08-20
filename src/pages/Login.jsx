@@ -31,12 +31,30 @@ console.log('API URL:', process.env.REACT_APP_API_URL);
     );
       const { token, user } = response.data.data;
 
-      // Update Zustand store
-      login(token, user);
+     
 
       console.log('Login successful:', response.data);
       console.log('token:', token);
       console.log('user:', user);
+
+      //   start and set session
+      const startChatResponse = await axios.post(
+        `${process.env.REACT_APP_API_URL}/chat/start`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const chatSessionId = startChatResponse.data.session.id;
+
+      console.log('Chat session started:', startChatResponse.data);
+    //   log session id
+    console.log('Chat Session ID:', startChatResponse.data.session.id);
+       // Update Zustand store
+      login(chatSessionId, token, user);
 
       // Redirect to dashboard or homepage
       navigate('/chat');
