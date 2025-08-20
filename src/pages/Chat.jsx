@@ -6,7 +6,7 @@ import axios from 'axios';
 import { processMessageSentiment, shouldBlockSession, shouldShowCounsellor } from '../utils/sentimentTracker';
 
 const Chat = () => {
-    const [showSidebar, setShowSidebar] = useState(false);
+    const [showSidebar, setShowSidebar] = useState(true);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
     const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
@@ -259,56 +259,52 @@ const handleConnect = () => {
                     </div>
                 </div>
 
-                {/* Scrollable session list */}
-                <ul className="chat-sessions-list">
-                    {isLoadingSessions ? (
-                        <div className="loading-history">
-                            <div className="loader small"></div>
-                            <span>Loading sessions...</span>
-                        </div>
-                    ) : (
-                        <>
-                            {/* Current active session */}
-                            <li 
-                                className={`chat-session-item ${selectedSessionId === chatSessionId ? 'active' : ''} current-session`}
-                                onClick={() => loadSessionMessages(chatSessionId)}
-                            >
-                                <div className="session-preview">
-                                  
-                                    <p className="session-title">
-                                        Current Chat
-                                    </p>
-                                    <p className="session-time">
-                                        Started: {formatSessionDate(new Date().toISOString())}
-                                    </p>
-                                </div>
-                            </li>
+            {/* Scrollable session list */}
+            <ul className="chat-sessions-list">
+            {isLoadingSessions ? (
+                <div className="loading-history">
+                <div className="loader small"></div>
+                <span>Loading sessions...</span>
+                </div>
+            ) : (
+                <>
+                {/* Current active session */}
+                <li
+                    className={`chat-session-item ${selectedSessionId === chatSessionId ? 'active' : ''} current-session`}
+                    onClick={() => loadSessionMessages(chatSessionId)}
+                >
+                    <div className="session-preview">
+                    <p className="session-title">Current Chat</p>
+                    <p className="session-time">
+                        Started: {formatSessionDate(new Date().toISOString())}
+                    </p>
+                    </div>
+                </li>
 
-                            {/* Previous sessions */}
-                            {chatSessions.length > 0 ? (
-                                chatSessions.map((session) => (
-                                    <li key={session.id} 
-                                        className={`chat-session-item ${session.id === selectedSessionId ? 'active' : ''}`}
-                                        onClick={() => loadSessionMessages(session.id)}
-                                    >
-                                        <div className="session-preview">
-                                            <p className="session-title">
-                                                {session.title}
-                    
-                                            </p>
-                                        
-                                            <p className="session-message-count">
-                                                {session.messageCount} messages
-                                            </p>
-                                        </div>
-                                    </li>
-                                ))
-                            ) : (
-                                <li className="no-sessions">No previous chat sessions</li>
-                            )}
-                        </>
-                    )}
-                </ul>
+                {/* Previous sessions */}
+                {chatSessions.filter(session => session.messageCount > 0).length > 0 ? (
+                    chatSessions
+                    .filter(session => session.messageCount > 0)
+                    .map(session => (
+                        <li
+                        key={session.id}
+                        className={`chat-session-item ${session.id === selectedSessionId ? 'active' : ''}`}
+                        onClick={() => loadSessionMessages(session.id)}
+                        >
+                        <div className="session-preview">
+                            <p className="session-title">{session.title}</p>
+                            <p className="session-message-count">
+                            {session.messageCount} {session.messageCount === 1 ? 'message' : 'messages'}
+                            </p>
+                        </div>
+                        </li>
+                    ))
+                ) : (
+                    <li className="no-sessions">No previous chat sessions</li>
+                )}
+                </>
+            )}
+            </ul>
             </div>
             
             {/* Mobile toggle button (hidden on desktop) */}
