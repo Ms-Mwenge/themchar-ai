@@ -489,7 +489,7 @@ div.send-btn:hover{
   border: thin solid var(--light-gray);
 }
 
-input[type="email"], input[type="password"]{
+input[type="email"],input[type="text"], input[type="password"]{
   width: 100%;
   max-width: 400px;
   height: 50px;

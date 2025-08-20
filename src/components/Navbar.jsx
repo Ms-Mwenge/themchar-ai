@@ -34,11 +34,11 @@ const Navbar = () => {
       );
 
       logout();
-      navigate('/login');
+      navigate('/');
     } catch (err) {
       console.error('Logout failed', err);
       logout();
-      navigate('/login');
+      navigate('/');
     }
   };
 
