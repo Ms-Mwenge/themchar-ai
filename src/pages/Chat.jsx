@@ -117,6 +117,9 @@ const Chat = () => {
             );
             
             if (res.status !== 200 && res.status !== 201) throw new Error('Failed to send message');
+
+            // log response
+            console.log('API Response:', res.data);
             return res.data;
         } catch (err) {
             console.error('API Error:', err);
@@ -277,6 +280,7 @@ const Chat = () => {
             )}
         </aside>
             <aside className="chat-main-panel">
+                <h3>Hellow</h3>
                 {isLoadingMessages ? (
                     <div className="loading-messages">
                         <div className="loader"></div>
