@@ -3,8 +3,10 @@ import { useAuthStore } from '../stores/authStore';
 import MessageBubble from '../components/MessageBubble.jsx';
 import axios from 'axios';
 
+import { processMessageSentiment, shouldBlockSession, shouldShowCounsellor } from '../utils/sentimentTracker';
+
 const Chat = () => {
-    const [showSidebar, setShowSidebar] = useState(true);
+    const [showSidebar, setShowSidebar] = useState(false);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
     const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
@@ -16,6 +18,17 @@ const Chat = () => {
 
     const toggleSidebar = () => setShowSidebar(!showSidebar);
     const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+
+    const [showCounsellorAlert, setShowCounsellorAlert] = useState(false);
+    const [isSessionBlocked, setIsSessionBlocked] = useState(false);
+
+        // Check sentiment status on component mount
+        useEffect(() => {
+            setIsSessionBlocked(shouldBlockSession());
+            setShowCounsellorAlert(shouldShowCounsellor());
+        }, []);
+
+
 
     useEffect(() => { scrollToBottom(); }, [messages]);
 
@@ -143,7 +156,7 @@ const Chat = () => {
     };
 
     const handleSend = async () => {
-        if (!newMessage.trim() || isWaitingForResponse) return;
+           if (!newMessage.trim() || isWaitingForResponse || isSessionBlocked) return;
 
         const userMessage = {
             id: Date.now(),
@@ -158,6 +171,21 @@ const Chat = () => {
         setNewMessage("");
 
         const data = await sendMessageToAPI(userMessage.text);
+          // Process sentiment from bot response if available
+        if (data.bot && data.bot.sentiment) {
+        const sentimentResult = processMessageSentiment(data.bot);
+        if (sentimentResult) {
+            setIsSessionBlocked(sentimentResult.isSessionBlocked);
+            setShowCounsellorAlert(sentimentResult.shouldShowCounsellor);
+        }
+        }
+
+        // Process sentiment from student message
+        const studentSentimentResult = processMessageSentiment(data.student);
+        if (studentSentimentResult) {
+        setIsSessionBlocked(studentSentimentResult.isSessionBlocked);
+        setShowCounsellorAlert(studentSentimentResult.shouldShowCounsellor);
+        }
 
         const studentMsg = {
             id: data.student.id,
@@ -203,6 +231,19 @@ const Chat = () => {
     const isCurrentSession = (sessionId) => {
         return sessionId === chatSessionId;
     };
+
+    // handle show counselor modal
+
+const handleConnect = () => {
+  const subject = encodeURIComponent("Professional Counselling Support Request - ThemcharAI");
+  const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=life101counselling@gmail.com&su=${subject}`;
+
+  window.open(gmailLink, "_blank"); // opens Gmail compose in new tab
+  setShowCounsellorAlert(false);
+ 
+};
+
+
 
     return (
         <section className="chat flex">
@@ -280,7 +321,19 @@ const Chat = () => {
             )}
         </aside>
             <aside className="chat-main-panel">
-                <h3>Hellow</h3>
+                {showCounsellorAlert &&
+                   <div className="alert-overlay">
+                     <div className="c-alert">
+                        <h3>See a Counsellor</h3>
+                        <p>We recommend speaking with a mental health professional. Your mental health is important,
+                             and we're here to help you connect with the right resources.</p>
+                        <div>
+                            <button onClick={() => setShowCounsellorAlert(false)} className="btn-a">Dismiss</button>
+                            <button onClick={handleConnect} className="btn-b">Connect</button>
+                        </div>
+                    </div>
+                   </div>
+                }
                 {isLoadingMessages ? (
                     <div className="loading-messages">
                         <div className="loader"></div>
@@ -322,17 +375,17 @@ const Chat = () => {
 
                         <div className="container">
                             <div className="chat-input">
-                                <input
-                                    type="text"
-                                    value={newMessage}
-                                    placeholder="Type your message..."
-                                    onChange={e => setNewMessage(e.target.value)}
-                                    onKeyDown={e => e.key === 'Enter' && handleSend()}
-                                    disabled={isWaitingForResponse}
-                                />
+                                  <input
+                                        type="text"
+                                        value={newMessage}
+                                        placeholder={isSessionBlocked ? "Session paused. Please seek professional help." : "Type your message..."}
+                                        onChange={e => setNewMessage(e.target.value)}
+                                        onKeyDown={e => e.key === 'Enter' && handleSend()}
+                                        disabled={isWaitingForResponse || isSessionBlocked}
+                                    />
                                 <div
                                     onClick={handleSend}
-                                    className={"send-btn" + (isWaitingForResponse ? "-disabled" : "")}
+                                    className={"send-btn" + (isWaitingForResponse ? "-disabled" :isSessionBlocked ? "-disabled" :"")}
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#fff" className="bi bi-send-fill" viewBox="0 0 16 16">
                                         <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471z"/>

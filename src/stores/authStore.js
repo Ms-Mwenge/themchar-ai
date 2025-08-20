@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { resetSentimentTracking } from '../utils/sentimentTracker';
 
 // Helper functions to manage localStorage
 const getToken = () => localStorage.getItem('token') || null;
@@ -32,6 +33,7 @@ export const useAuthStore = create((set) => ({
     localStorage.removeItem('token');
     localStorage.removeItem('chat_session_id');
     localStorage.removeItem('user');
+    resetSentimentTracking();
     set({ 
       chatSessionId: null, 
       token: null, 
