@@ -757,6 +757,7 @@ input[type="email"],input[type="text"], input[type="password"]{
   padding: 1em;
 }
 
+
   .logo img{
     width: 150px;
     height: auto;
@@ -944,8 +945,19 @@ div.c-alert .btn-b{
   letter-spacing: 0px;
 }
 
+.justify-between {
+  justify-content: space-between;
+}
+.capitalize{
+  text-transform: capitalize;
+}
+.s{
 
-
+  margin-left: 3em;
+  padding-left: 2em;
+  /* border: thin solid var(--white);
+  border-left-color:  var(--gray); */
+}
 /* Modal Overlay */
 .modal-overlay {
   position: fixed;

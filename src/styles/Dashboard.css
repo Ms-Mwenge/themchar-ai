@@ -13,10 +13,17 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 1rem;
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
+  background: #f2f2f2 !important;
   color: var(--black);
 }
-
+.items-center{
+    align-items: center;
+}
+.user{
+  text-align: right;
+  font-size: .85rem;
+}
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -24,10 +31,13 @@
   background-color: var(--white);
   padding: 1rem 2rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  border-radius: 8px;
+   
+  margin-bottom: 2rem;
+  margin-top: 0em;
+}
+.mb-2{
   margin-bottom: 2rem;
 }
-
 .logo {
   height: 40px;
 }
@@ -58,7 +68,7 @@
   flex: 1;
   background-color: var(--white-02);
   padding: 1rem 1.5rem;
-  border-radius: 8px;
+   
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
@@ -70,13 +80,16 @@
 .sessions-container {
   background-color: var(--white-02);
   padding: 1rem;
-  border-radius: 8px;
+   
+ 
 }
 
 .sessions-list {
   list-style: none;
   padding: 0;
   margin: 0;
+   height: 30dvh;
+  overflow-y: auto;
 }
 
 .sessions-list li {
@@ -84,9 +97,13 @@
   cursor: pointer;
   border-bottom: 1px solid var(--light-gray);
 }
+.sessions-list li:hover {
+  background: var(--light-gray);
+  color: var(--black);
+}
 
 .sessions-list li.selected {
-  background-color: var(--green);
+  background-color: var(--blue);
   color: var(--white);
 }
 
@@ -105,3 +122,10 @@
 
 .card.message-counts { border-left: 4px solid var(--blue); }
 .card.sentiment-summary { border-left: 4px solid var(--green); }
+
+/* media query for small screens */
+@media (max-width: 992px){
+  .user{
+    display: none;
+  }
+}
