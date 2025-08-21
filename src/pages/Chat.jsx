@@ -272,7 +272,7 @@ const handleConnect = () => {
             ) : (
                 <>
                 {/* Current active session */}
-                <li
+                {/* <li
                     className={`chat-session-item ${selectedSessionId === chatSessionId ? 'active' : ''} current-session`}
                     onClick={() => loadSessionMessages(chatSessionId)}
                 >
@@ -282,7 +282,7 @@ const handleConnect = () => {
                         Started: {formatSessionDate(new Date().toISOString())}
                     </p>
                     </div>
-                </li>
+                </li> */}
 
                 {/* Previous sessions */}
                 {chatSessions.filter(session => session.messageCount > 0).length > 0 ? (
