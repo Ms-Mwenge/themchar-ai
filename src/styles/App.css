@@ -674,7 +674,9 @@ input[type="email"],input[type="text"], input[type="password"]{
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
-
+.error{
+  color: rgb(255, 65, 65);
+}
 .no-sessions {
   padding: 40px 20px;
   text-align: center;

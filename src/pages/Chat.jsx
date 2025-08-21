@@ -159,7 +159,7 @@ const Chat = () => {
     };
 
     const handleSend = async () => {
-           if (!newMessage.trim() || isWaitingForResponse || isSessionBlocked) return;
+           if (!newMessage.trim() || isWaitingForResponse || isSessionBlocked || !currentUser) return;
 
         const userMessage = {
             id: Date.now(),
