@@ -22,6 +22,9 @@ const Chat = () => {
     const [showCounsellorAlert, setShowCounsellorAlert] = useState(false);
     const [isSessionBlocked, setIsSessionBlocked] = useState(false);
 
+      // set window title
+  window.document.title = "Chat - Themchar AI";
+
         // Check sentiment status on component mount
         useEffect(() => {
             setIsSessionBlocked(shouldBlockSession());
@@ -37,7 +40,7 @@ const Chat = () => {
     const chatSessionId = useAuthStore(state => state.chatSessionId);
     const token = useAuthStore(state => state.token);
 
-    // 🔍 Fetch all chat sessions when component mounts
+    //  Fetch all chat sessions when component mounts
     useEffect(() => {
         const fetchChatSessions = async () => {
             if (!token) return;
@@ -66,7 +69,7 @@ const Chat = () => {
         fetchChatSessions();
     }, [token]);
 
-    // 🔍 Load messages for the current session when component mounts or session changes
+    //  Load messages for the current session when component mounts or session changes
     useEffect(() => {
         if (chatSessionId) {
             loadSessionMessages(chatSessionId);

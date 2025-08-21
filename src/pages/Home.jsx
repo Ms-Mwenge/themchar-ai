@@ -2,6 +2,8 @@ import {React} from 'react';
 import {NavLink} from 'react-router-dom';
 
 const Home = () => {
+      // set window title
+  window.document.title = "Themchar AI - Depression detection with sentiment analysis chatbot";
     return(
         <>
             <div className="home flex">
@@ -11,7 +13,7 @@ const Home = () => {
                         <br />
                         <b>Companion</b><span>.</span>
                     </h1>
-                    <p className="mt-1">AI-powered stress and depression detection chatbot for university students.</p>
+                    <p className="mt-1">Stress and depression detection using sentiment analysis for university students.</p>
                     <NavLink to="/chat">
                         <button className="start-chat"> Start Chat</button>
                     </NavLink>

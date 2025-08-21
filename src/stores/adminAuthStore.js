@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 // Helper functions to manage localStorage
-const getToken = () => localStorage.getItem('token') || null;
+const getToken = () => localStorage.getItem('AdminToken') || null;
 const getUser = () => {
   const userStr = localStorage.getItem('AdminUser');
   return userStr ? JSON.parse(userStr) : null;
@@ -14,7 +14,7 @@ export const useAuthStore = create((set) => ({
 
   // Login function
   login: (token, userData) => {
-    localStorage.setItem('token', token);
+    localStorage.setItem('AdminToken', token);
     localStorage.setItem('AdminUser', JSON.stringify(userData));
     set({ 
       token, 
@@ -25,7 +25,7 @@ export const useAuthStore = create((set) => ({
 
   // Logout function
   logout: () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('AdminToken');
     localStorage.removeItem('AdminUser');
     set({ 
       token: null, 
@@ -42,7 +42,7 @@ export const useAuthStore = create((set) => ({
 
   // Update token function (optional)
   setToken: (token) => {
-    localStorage.setItem('token', token);
+    localStorage.setItem('AdminToken', token);
     set({ token, isAuthenticated: !!token });
   },
 

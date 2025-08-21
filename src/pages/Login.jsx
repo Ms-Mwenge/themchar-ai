@@ -13,6 +13,9 @@ const Login = () => {
   const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
 
+  // set window title
+  window.document.title = "Login - Themchar AI";
+
 //   log url from .env
 console.log('API URL:', process.env.REACT_APP_API_URL);
 

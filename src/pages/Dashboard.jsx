@@ -15,6 +15,10 @@ const Dashboard = () => {
   const [sentimentSummary, setSentimentSummary] = useState({ positive: 0, negative: 0, neutral: 0 });
   const [isSessionExpired, setIsSessionExpired] = useState(false);
 
+
+  // set window title
+  window.document.title = "Analytics Dashboard - Themchar AI";
+
   useEffect(() => {
     fetchSessionOverview();
     fetchSessions();

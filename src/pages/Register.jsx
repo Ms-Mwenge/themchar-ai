@@ -12,6 +12,9 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  // set window title
+  window.document.title = "Register - Themchar AI";
+
 
   const handleregister = async () => {
     setError("");
