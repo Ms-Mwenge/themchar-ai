@@ -9,6 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
@@ -20,9 +21,11 @@ const Login = () => {
 console.log('API URL:', process.env.REACT_APP_API_URL);
 
   const handleLogin = async () => {
+    setLoading(true);
     setError('');
     if (!email || !password) {
       setError('Please enter both email and password.');
+      setLoading(false);
       return;
     }
 
@@ -68,6 +71,8 @@ console.log('API URL:', process.env.REACT_APP_API_URL);
       } else {
         setError('Login failed. Please try again.');
       }
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -100,7 +105,7 @@ console.log('API URL:', process.env.REACT_APP_API_URL);
             onChange={(e) => setPassword(e.target.value)}
           />
           <button className="mt-2 btn-primary" onClick={handleLogin}>
-            Login
+            {loading ? 'Loading...' : 'Login'}
           </button>
 
           <p className="mt-1">

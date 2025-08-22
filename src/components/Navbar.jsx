@@ -11,12 +11,15 @@ const Navbar = () => {
   const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
 
+  const [loading, setLoading] = useState(false);
+
   // Modal state
   const [isCounsellorModalOpen, setCounsellorModalOpen] = useState(false);
   const [isTestModalOpen, setTestModalOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
+      setLoading(true);
       await axios.post(
         `${process.env.REACT_APP_API_URL}/chat/end/${chatSessionId}`,
         {},
@@ -39,6 +42,8 @@ const Navbar = () => {
       console.error('Logout failed', err);
       logout();
       navigate('/');
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -70,7 +75,7 @@ const Navbar = () => {
             }
             {user ? (
               <button className="btn-c" onClick={handleLogout}>
-                Logout
+                {loading ? 'Loading...' : 'Logout'}
               </button>
             ) : (
               <NavLink to="/login" className="btn-primary">

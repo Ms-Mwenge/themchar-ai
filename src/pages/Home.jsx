@@ -4,6 +4,9 @@ import {NavLink} from 'react-router-dom';
 const Home = () => {
       // set window title
   window.document.title = "Themchar AI - Depression detection with sentiment analysis chatbot";
+
+  //   log url from .env
+console.log('API URL:', process.env.REACT_APP_API_URL);
     return(
         <>
             <div className="home flex">

@@ -14,6 +14,7 @@ const Dashboard = () => {
   const [messageCounts, setMessageCounts] = useState({ studentCount: 0, botCount: 0 });
   const [sentimentSummary, setSentimentSummary] = useState({ positive: 0, negative: 0, neutral: 0 });
   const [isSessionExpired, setIsSessionExpired] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 
   // set window title
@@ -78,6 +79,12 @@ const Dashboard = () => {
     }
   };
 
+  // handle logout
+  const handleLogout = () => {
+    setLoading(true);
+    logout();
+  }
+
   return (
     <div className="dashboard">
 
@@ -91,7 +98,7 @@ const Dashboard = () => {
         </div>
         <div className="flex column-gap">
           <p className="user"><b>Signed in as: </b>{user?.email ?? '-'}</p>
-        <button className="btn-c" onClick={logout}>Logout</button>
+        <button className="btn-c" onClick={handleLogout}>{loading ? 'Loading...' : 'Logout'}</button>
         <h1></h1>
 
         </div>
